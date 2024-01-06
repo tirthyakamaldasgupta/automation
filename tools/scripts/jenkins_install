@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Author:         Subhayan Dasgupta
+# Date Created:   5/1/24
+# Date Modified:  6/1/24
+
+# Description:
+# On Debian and Debian-based distributions like Ubuntu you can install Jenkins through apt.
+# With the release of Debian 12, OpenJDK 11 is no longer included. It has been replaced with 
+# OpenJDK 17 which is reflected in the instructions below. Beginning with Jenkins 2.335 and Jenkins 2.332.1, # the package is configured with systemd rather than the older System V init.
+# The package installation will:
+# Setup Jenkins as a daemon launched on start. Run systemctl cat jenkins for more details.
+# Create a ‘jenkins’ user to run this service.
+# Direct console log output to systemd-journald. Run journalctl -u jenkins.service if you
+# are troubleshooting Jenkins.
+# Populate /lib/systemd/system/jenkins.service with configuration parameters for the launch, e.g JENKINS_HOME
+# Set Jenkins to listen on port 8080. Access this port with your browser to start configuration.
+# If Jenkins fails to start because a port is in use, run systemctl edit jenkins and add the following:
+# [Service]
+# Environment="JENKINS_PORT=8081"
+# Here, "8081" was chosen but you can put another port available.
+
+# Usage:
+# This shell script is used to install Jenkins LTS on Ubuntu based Linux hosts. Use "chmod 744" 
+# permission to scope the read, write and execute permission to the logged in user only.
+# Acknowledgement: https://www.jenkins.io/doc/book/installing/linux/
+
+set -e
+
+# Jenkins requires Java to run, yet not all Linux distributions include Java by default.
+# Update the Debian apt repositories, install OpenJDK 17, and check the installation with the commands:
+sudo apt update -y
+sudo apt install -y fontconfig openjdk-17-jre
+java -version
+
+# A LTS (Long-Term Support) release is chosen every 12 weeks from the stream of regular releases
+# as the stable release for that time period. It can be installed from the debian-stable apt repository.
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get -y update
+sudo apt-get install -y jenkins
+
+# Start Jenkins
+# You can enable the Jenkins service to start at boot with the command:
+sudo systemctl enable jenkins
+
+# You can start the Jenkins service with the command:
+sudo systemctl start jenkins
+
+# You can check the status of the Jenkins service using the command:
+sudo systemctl status jenkins

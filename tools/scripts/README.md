@@ -2,7 +2,6 @@
 
 ## Local testing
 
-These unpolished shell scripts can be used to test the tech stack in local test environment to simulate the real world use cases.
+These bash shell scripts can be used to install the requisites tech stack and configure them in local test fixtures (vagrant boxes) to simulate the real world use cases.
 
 To be continued...
-
