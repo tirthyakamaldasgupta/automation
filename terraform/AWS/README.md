@@ -6,16 +6,18 @@
 
 Always use **secrets.tfvars** file to pass the following AWS credentials. You can also use a managed secrets service (from any Cloud provider) in order to store and pass them securely.
 ```
-AWS_ACCESS_KEY_ID       = "AKIAIOSFODNN7EXAMPLE"
-AWS_SECRET_ACCESS_KEY   = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-AWS_REGION              = "us-east-1"
+AWS_ACCESS_KEY_ID       = "<AKIAIOSFODNN7EXAMPLE>"
+AWS_SECRET_ACCESS_KEY   = "<wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY>"
+AWS_REGION              = "<us-east-1>"
 ```
 
 ## Commands
 
 ### Deployment
 ```
-terraform init --var-file secrets.tfvars -upgrade
+terraform init -upgrade
+terraform validate
+terraform fmt
 terraform plan --var-file secrets.tfvars -out aws_eks_deployment.tfplan
 terraform apply aws_eks_deployment.tfplan
 ```

@@ -1,6 +1,6 @@
 # Author:           Subhayan Dasgupta
 # Date Created:     11/01/2024
-# Date Modified:    12/01/2024
+# Date Modified:    13/01/2024
 
 # Description:
 # Deploy an AWS EKS managed cluster using Terraform.
@@ -8,9 +8,9 @@
 # Usage:
 # Always use secrets.tfvars file to pass the following AWS credentials.
 #
-# AWS_ACCESS_KEY_ID       = "AKIAIOSFODNN7EXAMPLE"
-# AWS_SECRET_ACCESS_KEY   = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-# AWS_REGION              = "us-east-1"
+# AWS_ACCESS_KEY_ID       = "<AKIAIOSFODNN7EXAMPLE>"
+# AWS_SECRET_ACCESS_KEY   = "<wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY>"
+# AWS_REGION              = "<us-east-1>"
 #
 # Commands to deploy: 
 # terraform init --var-file secrets.tfvars -upgrade
@@ -31,7 +31,11 @@ terraform {
   }
 }
 
-provider "aws" {}
+provider "aws" {
+  access_key = var.AWS_ACCESS_KEY_ID
+  secret_key = var.AWS_SECRET_ACCESS_KEY
+  region     = var.region
+}
 
 # Use local values to assign names to the expressions.
 locals {

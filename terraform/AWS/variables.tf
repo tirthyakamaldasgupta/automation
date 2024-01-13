@@ -1,12 +1,24 @@
 # Author:           Subhayan Dasgupta
 # Date Created:     11/01/2024
-# Date Modified:    12/01/2024
+# Date Modified:    13/01/2024
 
 # Description:
 # Hold the values for the variables which can be parameterized in main.tf.
 
 # Usage:
 # variables.tf.
+
+variable "AWS_ACCESS_KEY_ID" {
+  type        = string
+  description = "Use secrets.tfvars to pass the secrets securely."
+  sensitive   = true
+}
+
+variable "AWS_SECRET_ACCESS_KEY" {
+  type        = string
+  description = "Use secrets.tfvars to pass the secrets securely."
+  sensitive   = true
+}
 
 variable "name" {
   type        = string
@@ -17,7 +29,7 @@ variable "name" {
 # Use "secrets.tfvars" to declare the default AWS Region.
 variable "region" {
   type        = string
-  description = "Choose Asia Pacific (Mumbai) ap-south-1 to deploy the AWS resources."
+  description = "Choose a region to deploy your AWS resources."
 }
 
 variable "vpc_cidr" {
