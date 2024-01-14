@@ -1,6 +1,6 @@
 # Author:           Subhayan Dasgupta
 # Date Created:     11/01/2024
-# Date Modified:    13/01/2024
+# Date Modified:    14/01/2024
 
 # Description:
 # Hold the values for the variables which can be parameterized in main.tf.
@@ -26,10 +26,9 @@ variable "name" {
   default     = "PoCKubernetesCluster"
 }
 
-# Use "secrets.tfvars" to declare the default AWS Region.
 variable "region" {
   type        = string
-  description = "Choose a region to deploy your AWS resources."
+  description = "Choose a region to deploy your AWS resources." # Need User input to proceed for deployments.
 }
 
 variable "vpc_cidr" {

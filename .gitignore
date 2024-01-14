@@ -9,3 +9,7 @@ terraform/AWS/.terraform/providers/registry.terraform.io/hashicorp/cloudinit/2.3
 terraform/AWS/.terraform/providers/registry.terraform.io/hashicorp/kubernetes/2.25.2/darwin_amd64/terraform-provider-kubernetes_v2.25.2_x5
 terraform/AWS/.terraform/providers/registry.terraform.io/hashicorp/time/0.10.0/darwin_amd64/terraform-provider-time_v0.10.0_x5
 terraform/AWS/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.5/darwin_amd64/terraform-provider-tls_v4.0.5_x5
+terraform/AWS/aws_eks_deployment.destroy.tfplan
+terraform/AWS/aws_eks_deployment.tfplan
+terraform/AWS/terraform.tfstate.backup
+terraform/AWS/terraform.tfstate

@@ -1,6 +1,6 @@
 # Author:           Subhayan Dasgupta
 # Date Created:     11/01/2024
-# Date Modified:    13/01/2024
+# Date Modified:    14/01/2024
 
 # Description:
 # Deploy an AWS EKS managed cluster using Terraform.
@@ -37,13 +37,16 @@ provider "aws" {
   region     = var.region
 }
 
+# Export the name of the Availability Zones (AZ)s
+data "aws_availability_zones" "available" {}
+
 # Use local values to assign names to the expressions.
 locals {
   name   = "${var.name}AWSEKS"
   region = var.region
 
   vpc_cidr = var.vpc_cidr
-  azs      = ["us-east-1a", "us-east-1b"]
+  azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   public_subnets  = ["10.123.1.0/24", "10.123.2.0/24"]
   private_subnets = ["10.123.3.0/24", "10.123.4.0/24"]
@@ -101,19 +104,18 @@ module "eks" {
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"
-    instance_types = ["t3.large"]
+    instance_types = ["t3.medium"] # List of instance types associated with the EKS Node Group. Defaults to ["t3.medium"]
 
     attach_cluster_primary_security_group = true
   }
 
   eks_managed_node_groups = {
-    ascode-cluster-wg = {
+    PoC-cluster-wg = {
       min_size     = 1
       max_size     = 2
       desired_size = 1
 
-      instance_types = ["t3.large"]
-      capacity_type  = "SPOT"
+      capacity_type = "SPOT" # Type of capacity associated with the EKS Node Group. Valid values: ON_DEMAND, SPOT
     }
   }
 
